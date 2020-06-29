@@ -9,15 +9,26 @@ class App extends React.Component{
         super(props)
         this.state = {
             activeNoteIndex: 0,
-            notes: [
-                {body: 'This is my body one'},
-                {body: 'This is my body two'},
-                {body: 'This is my body three with a really long first line'},
-            ]
+            notes: []
         }
         this.handleNoteClick = this.handleNoteClick.bind(this)
         this.handleAddNote = this.handleAddNote.bind(this)
         this.handleNoteUpdate = this.handleNoteUpdate.bind(this)
+    }
+
+    componentDidMount(){
+        if(localStorage.getItem('notes')){
+            this.setState({
+                activeNoteIndex: localStorage.getItem('activeNoteIndex') ? localStorage.getItem('activeNoteIndex') : 0,
+                notes: JSON.parse(localStorage.getItem('notes'))
+            })
+        }else{
+            this.setState({
+                notes: [
+                    {body: 'Welcome to Aaron\'s notes app'},
+                ]
+            })
+        }
     }
 
 
@@ -25,6 +36,7 @@ class App extends React.Component{
         this.setState({
             activeNoteIndex: index
         })
+        this.updateStorage(index)
     }
 
     handleAddNote() {
@@ -34,6 +46,7 @@ class App extends React.Component{
             notes: newNotes,
             activeNoteIndex: newNotes.length - 1,
         })
+        this.updateStorage()
     }
 
     handleNoteUpdate(e) {
@@ -42,20 +55,31 @@ class App extends React.Component{
         this.setState({
             notes: notes
         })
+        this.updateStorage()
+    }
+
+    updateStorage(activeNoteIndex = null) {
+        console.log(activeNoteIndex === null ? activeNoteIndex : this.state.activeNoteIndex)
+        localStorage.setItem('notes', JSON.stringify([...this.state.notes]))
+        localStorage.setItem('activeNoteIndex', activeNoteIndex === null ? this.state.activeNoteIndex : activeNoteIndex)
     }
 
     render() {
 
+        let note;
+        if(this.state.notes.length){
+            note = <Note
+                note={this.state.notes[this.state.activeNoteIndex]}
+                handleAddNote={this.handleAddNote}
+                handleNoteUpdate={this.handleNoteUpdate}
+            >    
+            </Note>
+        }
         return (
             <div className="App">
                 <header className="App-header">
                     <Sidebar notes={this.state.notes} handleNoteClick={this.handleNoteClick}></Sidebar>
-                    <Note
-                        note={this.state.notes[this.state.activeNoteIndex]}
-                        handleAddNote={this.handleAddNote}
-                        handleNoteUpdate={this.handleNoteUpdate}
-                    >    
-                    </Note>
+                    { note }
                 </header>
             </div>
         );
