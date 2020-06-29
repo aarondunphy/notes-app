@@ -10,9 +10,9 @@ class App extends React.Component{
         this.state = {
             activeNoteIndex: 0,
             notes: [
-                {title: 'Title One', body: 'This is my body one'},
-                {title: 'Title Two', body: 'This is my body two'},
-                {title: 'Title Three', body: 'This is my body three'},
+                {body: 'This is my body one'},
+                {body: 'This is my body two'},
+                {body: 'This is my body three with a really long first line'},
             ]
         }
         this.handleNoteClick = this.handleNoteClick.bind(this)
@@ -29,7 +29,7 @@ class App extends React.Component{
 
     handleAddNote() {
         const newNotes = [...this.state.notes]
-        newNotes.push({title: '', body: ''})
+        newNotes.push({body: ''})
         this.setState({
             notes: newNotes,
             activeNoteIndex: newNotes.length - 1,
