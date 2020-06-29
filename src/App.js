@@ -8,21 +8,22 @@ class App extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
+            activeNoteIndex: 0,
             notes: [
                 {title: 'Title One', body: 'This is my body one'},
                 {title: 'Title Two', body: 'This is my body two'},
                 {title: 'Title Three', body: 'This is my body three'},
-            ],
-            note: {title: 'Title One', body: 'This is my body one'},
+            ]
         }
         this.handleNoteClick = this.handleNoteClick.bind(this)
         this.handleAddNote = this.handleAddNote.bind(this)
+        this.handleNoteUpdate = this.handleNoteUpdate.bind(this)
     }
 
 
     handleNoteClick(index) {
         this.setState({
-            note: this.state.notes[index]
+            activeNoteIndex: index
         })
     }
 
@@ -31,7 +32,15 @@ class App extends React.Component{
         newNotes.push({title: '', body: ''})
         this.setState({
             notes: newNotes,
-            note: {title: '', body: ''}
+            activeNoteIndex: newNotes.length - 1,
+        })
+    }
+
+    handleNoteUpdate(e) {
+        const notes = [...this.state.notes]
+        notes[this.state.activeNoteIndex].body = e.target.value
+        this.setState({
+            notes: notes
         })
     }
 
@@ -41,7 +50,12 @@ class App extends React.Component{
             <div className="App">
                 <header className="App-header">
                     <Sidebar notes={this.state.notes} handleNoteClick={this.handleNoteClick}></Sidebar>
-                    <Note note={this.state.note} handleAddNote={this.handleAddNote}></Note>
+                    <Note
+                        note={this.state.notes[this.state.activeNoteIndex]}
+                        handleAddNote={this.handleAddNote}
+                        handleNoteUpdate={this.handleNoteUpdate}
+                    >    
+                    </Note>
                 </header>
             </div>
         );
