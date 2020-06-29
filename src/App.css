@@ -1,3 +1,5 @@
+*{box-sizing: border-box;}
+
 .sidebar {
     width: 260px;
     position: fixed;
