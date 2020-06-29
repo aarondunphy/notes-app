@@ -1,19 +1,23 @@
 import React from 'react'
 
-function Sidebar(props) {
+class Sidebar extends React.Component {
+    
+    render() {
+        
+        const list = this.props.notes.map((note, index) => 
+            <li onClick={() => this.props.handleNoteClick(index)} key={index}>
+                {note.title}
+            </li>
+        )
 
-    const list = props.notes.map(note => 
-        <li>{note.title}</li>
-    )
-
-    return (
-        <div className="sidebar">
-            <ul>
-                { list }
-            </ul>
-        </div>
-    );
-
+        return (
+            <div className="sidebar">
+                <ul>
+                    { list }
+                </ul>
+            </div>
+        );   
+    }
 }
 
 export default Sidebar
