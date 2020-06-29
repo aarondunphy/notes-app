@@ -16,6 +16,7 @@ class App extends React.Component{
             note: {title: 'Title One', body: 'This is my body one'},
         }
         this.handleNoteClick = this.handleNoteClick.bind(this)
+        this.handleAddNote = this.handleAddNote.bind(this)
     }
 
 
@@ -25,13 +26,22 @@ class App extends React.Component{
         })
     }
 
+    handleAddNote() {
+        const newNotes = [...this.state.notes]
+        newNotes.push({title: '', body: ''})
+        this.setState({
+            notes: newNotes,
+            note: {title: '', body: ''}
+        })
+    }
+
     render() {
 
         return (
             <div className="App">
                 <header className="App-header">
                     <Sidebar notes={this.state.notes} handleNoteClick={this.handleNoteClick}></Sidebar>
-                    <Note note={this.state.note}></Note>
+                    <Note note={this.state.note} handleAddNote={this.handleAddNote}></Note>
                 </header>
             </div>
         );

@@ -1,6 +1,8 @@
 .sidebar {
     width: 260px;
     position: fixed;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .sidebar ul {
@@ -20,4 +22,14 @@
     border-left: 1px solid #000;
     min-height: 100vh;
     padding: 20px;
+}
+
+.add-note {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.add-note button {
+    font-size: 20px;
+    padding: 15px 20px;
 }
