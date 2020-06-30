@@ -35,8 +35,9 @@ class App extends React.Component{
     handleNoteClick(index) {
         this.setState({
             activeNoteIndex: index
+        }, () => {
+            this.updateStorage()
         })
-        this.updateStorage(index)
     }
 
     handleDeleteNote(index) {
@@ -48,8 +49,9 @@ class App extends React.Component{
         this.setState({
             activeNoteIndex: 0,
             notes: notes
+        }, () => {
+            this.updateStorage()
         })
-        this.updateStorage()
     }
 
     handleAddNote() {
@@ -58,8 +60,9 @@ class App extends React.Component{
         this.setState({
             notes: newNotes,
             activeNoteIndex: newNotes.length - 1,
+        }, () => {
+            this.updateStorage()
         })
-        this.updateStorage()
     }
 
     handleNoteUpdate(e) {
@@ -67,13 +70,14 @@ class App extends React.Component{
         notes[this.state.activeNoteIndex].body = e.target.value
         this.setState({
             notes: notes
+        }, () => {
+            this.updateStorage()
         })
-        this.updateStorage()
     }
 
-    updateStorage(activeNoteIndex = null) {
+    updateStorage() {
         localStorage.setItem('notes', JSON.stringify([...this.state.notes]))
-        localStorage.setItem('activeNoteIndex', activeNoteIndex === null ? this.state.activeNoteIndex : activeNoteIndex)
+        localStorage.setItem('activeNoteIndex', this.state.activeNoteIndex)
     }
 
     render() {
