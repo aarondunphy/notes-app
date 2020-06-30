@@ -14,6 +14,7 @@ class App extends React.Component{
         this.handleNoteClick = this.handleNoteClick.bind(this)
         this.handleAddNote = this.handleAddNote.bind(this)
         this.handleNoteUpdate = this.handleNoteUpdate.bind(this)
+        this.handleDeleteNote = this.handleDeleteNote.bind(this)
     }
 
     componentDidMount(){
@@ -31,12 +32,24 @@ class App extends React.Component{
         }
     }
 
-
     handleNoteClick(index) {
         this.setState({
             activeNoteIndex: index
         })
         this.updateStorage(index)
+    }
+
+    handleDeleteNote(index) {
+        let notes = [...this.state.notes]
+        notes.splice(index, 1)
+        if(notes.length === 0){
+            notes.push({body: ''})
+        }
+        this.setState({
+            activeNoteIndex: 0,
+            notes: notes
+        })
+        this.updateStorage()
     }
 
     handleAddNote() {
@@ -59,7 +72,6 @@ class App extends React.Component{
     }
 
     updateStorage(activeNoteIndex = null) {
-        console.log(activeNoteIndex === null ? activeNoteIndex : this.state.activeNoteIndex)
         localStorage.setItem('notes', JSON.stringify([...this.state.notes]))
         localStorage.setItem('activeNoteIndex', activeNoteIndex === null ? this.state.activeNoteIndex : activeNoteIndex)
     }
@@ -78,7 +90,11 @@ class App extends React.Component{
         return (
             <div className="App">
                 <header className="App-header">
-                    <Sidebar notes={this.state.notes} handleNoteClick={this.handleNoteClick}></Sidebar>
+                    <Sidebar 
+                        notes={this.state.notes}
+                        handleNoteClick={this.handleNoteClick}
+                        handleDeleteNote={this.handleDeleteNote}
+                    ></Sidebar>
                     { note }
                 </header>
             </div>

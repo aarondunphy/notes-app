@@ -17,6 +17,13 @@
     cursor: pointer;
     padding: 20px;
     border-bottom: 1px solid #000;
+    position: relative;
+}
+
+.sidebar ul li button {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .note {

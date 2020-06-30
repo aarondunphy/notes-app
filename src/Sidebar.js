@@ -1,5 +1,5 @@
 import React from 'react'
-
+import NoteItem from './NoteItem'
 class Sidebar extends React.Component {
     
     constructor(props){
@@ -18,18 +18,20 @@ class Sidebar extends React.Component {
     }
 
     render() {
-
         
-        const list = this.props.notes.map((note, index) => 
-            <li onClick={() => this.props.handleNoteClick(index)} key={index}>
-                {this.generateTitle(note.body)}
-            </li>
+        const noteList = this.props.notes.map((note, index) => 
+            <NoteItem
+                key={index}
+                title={this.generateTitle(note.body)}
+                handleNoteClick={() => this.props.handleNoteClick(index)}
+                handleDeleteNote={() => this.props.handleDeleteNote(index)}
+            ></NoteItem>
         )
 
         return (
             <div className="sidebar">
                 <ul>
-                    { list }
+                    { noteList }
                 </ul>
             </div>
         );   
