@@ -40,12 +40,14 @@ class App extends React.Component{
         })
     }
 
-    handleDeleteNote(index) {
+    handleDeleteNote(event, index) {
+        event.stopPropagation();
         let notes = [...this.state.notes]
         notes.splice(index, 1)
         if(notes.length === 0){
             notes.push({body: ''})
         }
+
         this.setState({
             activeNoteIndex: 0,
             notes: notes

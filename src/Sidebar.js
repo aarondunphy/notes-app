@@ -24,13 +24,13 @@ class Sidebar extends React.Component {
                 key={index}
                 title={this.generateTitle(note.body)}
                 handleNoteClick={() => this.props.handleNoteClick(index)}
-                handleDeleteNote={() => this.props.handleDeleteNote(index)}
+                handleDeleteNote={(e) => this.props.handleDeleteNote(e, index)}
             ></NoteItem>
         )
 
         return (
             <div className="sidebar">
-                <ul>
+                <ul data-testid="sidebarList">
                     { noteList }
                 </ul>
             </div>

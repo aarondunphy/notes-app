@@ -21,7 +21,7 @@ class NoteItem extends React.Component {
         let deleteButton
         if(this.state.hoverActive){
             deleteButton = (
-                <button onClick={this.props.handleDeleteNote}>-</button>
+                <button data-testid="deleteNoteButton" onClick={this.props.handleDeleteNote}>-</button>
             )
         }
         return (

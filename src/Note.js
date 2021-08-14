@@ -15,13 +15,14 @@ class Note extends React.Component{
         return (
             <div className="note">
                 <textarea 
+                    data-testid="newNoteTextarea"
                     value={this.props.note.body} 
                     onChange={this.props.handleNoteUpdate} 
                     ref={this.textarea}
                 >
                 </textarea>
                 <div className="add-note">
-                    <button onClick={this.props.handleAddNote}>+</button>
+                    <button data-testid="addNoteButton" onClick={this.props.handleAddNote}>+</button>
                 </div>
             </div>
         )
