@@ -9,7 +9,8 @@ const App = (props) => {
     const [notes, setNotes] = useState([])
 
     useEffect(() => {
-        updateStorage()
+        localStorage.setItem('notes', JSON.stringify([...notes]))
+        localStorage.setItem('activeNoteIndex', activeNoteIndex)
     }, [notes, activeNoteIndex])
 
     useEffect(() => {
@@ -53,11 +54,6 @@ const App = (props) => {
         const newNotes = [...notes]
         newNotes[activeNoteIndex].body = e.target.value
         setNotes(newNotes)
-    }
-
-    const updateStorage = () => {
-        localStorage.setItem('notes', JSON.stringify([...notes]))
-        localStorage.setItem('activeNoteIndex', activeNoteIndex)
     }
 
     return (
