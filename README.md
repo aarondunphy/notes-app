@@ -10,3 +10,8 @@ git clone git@github.com:aarondunphy/notes-app.git
 cd notes-app
 npm i && npm run start
 ```
+
+To run tests locally:
+```
+npm run test
+```
