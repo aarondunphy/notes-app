@@ -1,41 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-class NoteItem extends React.Component {
+const NoteItem = (props) => {
 
-    constructor(props){
-        super(props)
-        this.state = {
-            hoverActive: false
-        }
-        this.setHoverActive = this.setHoverActive.bind(this)
-    }
+    const [hoverActive, setHoverActiveState] = useState(false)
 
-    setHoverActive(state){
-        if(this.props.notesCount === 1){
+    const setHoverActive = state =>{
+        if(props.notesCount === 1){
             state = false
         }
-        this.setState({hoverActive: state})
+        setHoverActiveState(state)
     }
 
-    render(){
-        let deleteButton
-        if(this.state.hoverActive){
-            deleteButton = (
-                <button data-testid="deleteNoteButton" onClick={this.props.handleDeleteNote}>-</button>
-            )
-        }
-        return (
-            <li 
-                onClick={this.props.handleNoteClick}
-                onMouseEnter={() => this.setHoverActive(true)}
-                onMouseLeave={() => this.setHoverActive(false)}
-            >
-                {this.props.title}
-                {deleteButton}
-            </li>
+    return (
+        <li 
+            onClick={props.handleNoteClick}
+            onMouseEnter={() => setHoverActive(true)}
+            onMouseLeave={() => setHoverActive(false)}
+        >
+            {props.title}
+            {
+                hoverActive ? 
+                    <button data-testid="deleteNoteButton" onClick={props.handleDeleteNote}>-</button>
+                    : null
+            }
+        </li>
 
-        )
-    }
+    )
 
 }
 
