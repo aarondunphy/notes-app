@@ -1,33 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-class Note extends React.Component{
+const Note = (props) => {
+    let noteTextarea
 
-    constructor(props){
-        super(props)
-        this.textarea = React.createRef();
-    }
-
-    componentDidUpdate(){
-        this.textarea.current.focus();
-    }
-
-    render(){
-        return (
-            <div className="note">
-                <textarea 
-                    data-testid="newNoteTextarea"
-                    value={this.props.note.body} 
-                    onChange={this.props.handleNoteUpdate} 
-                    ref={this.textarea}
-                >
-                </textarea>
-                <div className="add-note">
-                    <button data-testid="addNoteButton" onClick={this.props.handleAddNote}>+</button>
-                </div>
+    useEffect(() => {
+        noteTextarea.focus()
+    })
+    
+    return (
+        <div className="note">
+            <textarea 
+                data-testid="newNoteTextarea"
+                value={props.note.body} 
+                onChange={props.handleNoteUpdate} 
+                ref={(textarea) => { noteTextarea = textarea }}
+            >
+            </textarea>
+            <div className="add-note">
+                <button data-testid="addNoteButton" onClick={props.handleAddNote}>+</button>
             </div>
-        )
-    }
-
+        </div>
+    )
 }
 
 export default Note
